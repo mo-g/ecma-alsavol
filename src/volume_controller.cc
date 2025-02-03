@@ -15,7 +15,7 @@ snd_mixer_t *handle;
 snd_mixer_elem_t* getMixerElem() {
 
   snd_mixer_selem_id_t *sid;
-  const char *card = "internal";
+  const char *card = "default";
   const char *selem_name = "PCM";
 
   snd_mixer_open(&handle, 0);
