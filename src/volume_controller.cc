@@ -15,8 +15,8 @@ snd_mixer_t *handle;
 snd_mixer_elem_t* getMixerElem() {
 
   snd_mixer_selem_id_t *sid;
-  const char *card = "default";
-  const char *selem_name = "Master";
+  const char *card = "internal";
+  const char *selem_name = "PCM";
 
   snd_mixer_open(&handle, 0);
   snd_mixer_attach(handle, card);
@@ -114,7 +114,8 @@ NAN_METHOD(GetVolume) {
 }
 
 NAN_METHOD(SetVolume) {
-  float newVolume = (float)info[0]->NumberValue();
+  float newVolume = (float)info[0]->NumberValue(Nan::GetCurrentContext()).ToChecked();
+  //float newVolume = (float)Nan::To<v8::Number>(info[0]).ToLocalChecked(); // This one is borked. Not sure how to do this right.
   setVolume(newVolume);
   // info.GetReturnValue().Set(Nan::New(setVolume(newVolume)));
 }
@@ -124,20 +125,24 @@ NAN_METHOD(IsMuted) {
 }
 
 NAN_METHOD(SetMute) {
-  bool muted = info[0]->BooleanValue();
+  bool muted = (bool)Nan::To<bool>(info[0]).ToChecked();
   setMute(muted);
   info.GetReturnValue().Set(Nan::New(isMuted()));
 }
 
 NAN_MODULE_INIT(init) {
-  target->Set(  Nan::New("getVolume").ToLocalChecked(),
-                Nan::New<v8::FunctionTemplate>(GetVolume)->GetFunction());
-  target->Set(  Nan::New("setVolume").ToLocalChecked(),
-                Nan::New<v8::FunctionTemplate>(SetVolume)->GetFunction());
-  target->Set(  Nan::New("isMuted").ToLocalChecked(),
-                Nan::New<v8::FunctionTemplate>(IsMuted)->GetFunction());
-  target->Set(  Nan::New("setMute").ToLocalChecked(),
-                Nan::New<v8::FunctionTemplate>(SetMute)->GetFunction());
+  target->Set(  Nan::GetCurrentContext(),
+                Nan::New("getVolume").ToLocalChecked(),
+                Nan::GetFunction(Nan::New<v8::FunctionTemplate>(GetVolume)).ToLocalChecked());
+  target->Set(  Nan::GetCurrentContext(),
+                Nan::New("setVolume").ToLocalChecked(),
+                Nan::GetFunction(Nan::New<v8::FunctionTemplate>(SetVolume)).ToLocalChecked());
+  target->Set(  Nan::GetCurrentContext(),
+                Nan::New("isMuted").ToLocalChecked(),
+                Nan::GetFunction(Nan::New<v8::FunctionTemplate>(IsMuted)).ToLocalChecked());
+  target->Set(  Nan::GetCurrentContext(),
+                Nan::New("setMute").ToLocalChecked(),
+                Nan::GetFunction(Nan::New<v8::FunctionTemplate>(SetMute)).ToLocalChecked());
 }
 
 NODE_MODULE(addon, init)

@@ -1,7 +1,7 @@
 {
-  "name": "node-audio-linux",
-  "version": "1.0.0",
-  "description": "Native Node.js audio controls for linux",
+  "name": "ecma-alsavol",
+  "version": "2.0.0",
+  "description": "Node.js volume control for ALSA",
   "main": "index.js",
   "os": [
     "linux"
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jlonardi/node-audio-linux.git"
+    "url": "git+https://github.com/mo-g/ecma-alsavol.git"
   },
   "keywords": [
     "node",
@@ -21,16 +21,20 @@
     "audio"
   ],
   "author": "Jarno Lonardi",
+  "contributors": [
+    {"name":"Mog","url":"https://github.com/mo-g"}
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jlonardi/node-audio-linux/issues"
+    "url": "https://github.com/mo-g/ecma-alsavol/issues"
   },
-  "homepage": "https://github.com/jlonardi/node-audio-linux#readme",
+  "homepage": "https://github.com/mo-g/ecma-alsavol#readme",
   "dependencies": {
-    "nan": "^2.11.1",
-    "node-gyp": "^3.8.0"
+    "nan": "^2.22.0",
+    "node-addon-api": "^8.3.0",
+    "node-gyp": "^11.0.0"
   },
   "devDependencies": {
-    "chalk": "^2.4.1"
+    "chalk": "^4.1.2"
   }
 }
