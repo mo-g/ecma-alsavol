@@ -2,8 +2,7 @@
 
 A native binding to [ALSA](https://www.alsa-project.org/main/index.php/Main_Page) to control the default audio device on Linux. Supports set/get the volume and get the muted state and set the muted state.
 
-[![npm](https://img.shields.io/npm/dm/node-audio-linux.svg)](https://www.npmjs.com/package/node-audio-linux)
-[![npm](https://img.shields.io/npm/v/node-audio-linux.svg)](https://www.npmjs.com/package/node-audio-linux)
+I haven't published this to npm because I've hardcoded the card to the weird values on my radios.
 
 ## How to Use
 ```javascript
